@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff0f4">
+  <title>اطمئني يا قلبي | الابتدائية الأولى للبنات برنيه</title>
+  <style>
+    :root { color-scheme: light; --ink: #58486d; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; overflow-x: hidden; color: var(--ink); font-family: Tahoma, Arial, sans-serif; background: radial-gradient(ellipse at 10% 20%, rgba(255,255,255,.92) 0 2%, transparent 2.4%), radial-gradient(ellipse at 88% 14%, rgba(255,255,255,.7) 0 3%, transparent 3.4%), linear-gradient(155deg, #fff4ee 0%, #fceafa 43%, #e7f4ff 100%); }
+    .page { position: relative; display: flex; min-height: 100svh; flex-direction: column; align-items: center; padding: 22px 18px 16px; isolation: isolate; }
+    .sky-decor { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+    .cloud { position: absolute; width: 110px; height: 34px; border-radius: 40px; background: rgba(255,255,255,.66); animation: drift 14s ease-in-out infinite alternate; }
+    .cloud::before, .cloud::after { position: absolute; content: ""; bottom: 10px; border-radius: 50%; background: inherit; }
+    .cloud::before { right: 19px; width: 42px; height: 42px; }
+    .cloud::after { right: 49px; width: 31px; height: 31px; }
+    .cloud.one { top: 18%; right: -20px; }
+    .cloud.two { top: 41%; left: -45px; transform: scale(.78); animation-delay: -5s; }
+    .cloud.three { bottom: 19%; right: 4%; transform: scale(.63); animation-delay: -8s; }
+    .star { position: absolute; color: #edc95d; opacity: .78; animation: twinkle 2.4s ease-in-out infinite alternate; }
+    .star.s1 { top: 14%; left: 13%; font-size: 23px; }
+    .star.s2 { top: 30%; right: 8%; font-size: 17px; animation-delay: -.9s; }
+    .star.s3 { bottom: 35%; left: 8%; font-size: 19px; animation-delay: -1.5s; }
+    .star.s4 { top: 54%; right: 16%; font-size: 14px; animation-delay: -.4s; }
+    .school-pill { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 10px 17px; border: 1px solid rgba(255,255,255,.88); border-radius: 999px; background: rgba(255,255,255,.73); box-shadow: 0 7px 20px rgba(113,81,144,.08); color: #594767; font-size: clamp(.82rem, 3.5vw, .97rem); font-weight: 700; text-align: center; }
+    .school-pill span { font-size: 1.13rem; }
+    main { display: flex; width: min(100%, 590px); flex: 1; flex-direction: column; align-items: center; justify-content: center; padding: 15px 0 12px; text-align: center; }
+    .building { display: block; width: min(245px, 62vw); height: auto; margin: 0 auto -5px; filter: drop-shadow(0 9px 7px rgba(113,88,133,.11)); }
+    h1 { margin: 0; color: #68477e; font-size: clamp(1.7rem, 8vw, 2.55rem); line-height: 1.25; }
+    .intro { margin: 7px 0 15px; color: #756384; font-size: clamp(.97rem, 4vw, 1.1rem); }
+    .heart-button { position: relative; display: grid; width: clamp(150px, 43vw, 190px); aspect-ratio: 1; place-items: center; padding: 0; border: 0; border-radius: 50%; color: white; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; filter: drop-shadow(0 12px 17px rgba(229,83,135,.25)); transition: transform .2s ease; }
+    .heart-button::before { position: absolute; z-index: -1; inset: 7%; border-radius: 50%; background: rgba(255,141,175,.25); content: ""; filter: blur(18px); animation: heartbeat 2.1s ease-in-out infinite; }
+    .heart-button:hover { transform: translateY(-3px) scale(1.025); }
+    .heart-button:active { transform: scale(.96); }
+    .heart-button:focus-visible, .another-button:focus-visible { outline: 4px solid #7550a0; outline-offset: 5px; }
+    .heart-shape { position: absolute; width: 100%; height: 100%; overflow: visible; inset: 0; }
+    .heart-content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; width: 72%; margin-top: 12px; text-align: center; text-shadow: 0 2px 5px rgba(92,30,60,.28); }
+    .smile { width: 45px; height: 32px; }
+    .heart-content strong { max-width: 100%; font-size: clamp(.95rem, 4.4vw, 1.1rem); line-height: 1.2; white-space: nowrap; }
+    .tap-caption { margin: 5px 0 12px; color: #79566d; font-size: .94rem; font-weight: 700; }
+    .message-card { width: min(100%, 420px); min-height: 103px; padding: 15px 19px 13px; border: 1px solid rgba(255,255,255,.93); border-radius: 23px; background: rgba(255,255,255,.97); box-shadow: 0 11px 28px rgba(113,81,144,.1); animation: card-in .45s cubic-bezier(.2,.8,.2,1) both; }
+    .message-card[hidden] { display: none; }
+    .message-text { margin: 0 0 9px; color: #4c315f; font-size: clamp(1.05rem, 4.5vw, 1.23rem); font-weight: 700; line-height: 1.65; }
+    .parent-line { margin: 0; color: #594767; font-size: .87rem; font-weight: 700; line-height: 1.6; }
+    .another-button { margin-top: 11px; padding: 9px 19px; border: 1px solid #e9d9f2; border-radius: 999px; color: #68477e; background: #fff; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; box-shadow: 0 5px 13px rgba(113,81,144,.07); transition: transform .18s ease; }
+    .another-button:hover { transform: translateY(-2px); }
+    .another-button[hidden] { display: none; }
+    footer { display: grid; gap: 5px; width: min(100%, 520px); padding: 10px 8px 2px; color: #655775; font-size: clamp(.78rem, 3.2vw, .9rem); line-height: 1.5; text-align: center; }
+    .footer-line { margin: 0; }
+    .footer-line:first-child { font-weight: 700; }
+    .footer-line:last-child { color: #75687f; }
+    .float-heart { position: fixed; z-index: 5; bottom: -35px; left: var(--x); color: var(--color); font-size: var(--size); pointer-events: none; animation: float-up var(--duration) ease-out forwards; }
+    @keyframes heartbeat { 0%,100% { transform: scale(.9); opacity: .7; } 50% { transform: scale(1.12); opacity: 1; } }
+    @keyframes twinkle { from { transform: scale(.8) rotate(-10deg); opacity: .45; } to { transform: scale(1.15) rotate(12deg); opacity: .95; } }
+    @keyframes drift { from { translate: -6px 0; } to { translate: 15px 5px; } }
+    @keyframes float-up { 0% { transform: translate3d(0,0,0) rotate(0deg) scale(.7); opacity: 0; } 12% { opacity: .94; } 100% { transform: translate3d(var(--sway),-110vh,0) rotate(28deg) scale(1.2); opacity: 0; } }
+    @keyframes card-in { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @media (max-height: 740px) { .page { padding-top: 14px; padding-bottom: 10px; } main { padding: 8px 0; } .building { width: min(195px, 45vw); } .intro { margin-bottom: 8px; } .heart-button { width: clamp(135px, 35vw, 160px); } .tap-caption { margin: 1px 0 8px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+  </style>
+</head>
+<body>
+  <div class="sky-decor" aria-hidden="true">
+    <span class="cloud one"></span><span class="cloud two"></span><span class="cloud three"></span>
+    <span class="star s1">✦</span><span class="star s2">✧</span><span class="star s3">✦</span><span class="star s4">✧</span>
+  </div>
+  <div class="page">
+    <header>
+      <div class="school-pill"><span aria-hidden="true">🏫</span> الابتدائية الأولى للبنات برنيه</div>
+    </header>
+    <main>
+      <svg class="building" viewBox="0 0 260 190" role="img" aria-label="مدرسة جميلة تحيط بها الغيوم والزهور">
+        <ellipse cx="130" cy="174" rx="108" ry="10" fill="#d9d4ec" opacity=".6"/>
+        <path d="M34 83 130 24l96 59v83H34z" fill="#fffdf8" stroke="#9c80bd" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M24 84 130 17l106 67-8 12-98-61-98 61z" fill="#ffb4ca" stroke="#9c80bd" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M106 61h48v-24h-48z" fill="#fff3b8" stroke="#9c80bd" stroke-width="3"/>
+        <path d="M101 61V44h58v17" fill="none" stroke="#9c80bd" stroke-width="3"/>
+        <text x="130" y="56" text-anchor="middle" font-size="14" font-family="Tahoma, Arial" fill="#76578e">مدرستي</text>
+        <path d="M111 166v-43a19 19 0 0 1 38 0v43z" fill="#b9a1e5" stroke="#9c80bd" stroke-width="3"/>
+        <circle cx="139" cy="143" r="2.5" fill="#fff3b8"/>
+        <g fill="#cbe9ff" stroke="#9c80bd" stroke-width="3">
+          <rect x="52" y="100" width="28" height="29" rx="8"/><rect x="180" y="100" width="28" height="29" rx="8"/>
+          <rect x="88" y="78" width="25" height="21" rx="7"/><rect x="147" y="78" width="25" height="21" rx="7"/>
+        </g>
+        <path d="M66 100v29M52 114h28M194 100v29M180 114h28M100 78v21M88 88h25M159 78v21M147 88h25" stroke="#fff" stroke-width="2"/>
+        <g fill="#ffdb72"><circle cx="33" cy="148" r="8"/><circle cx="227" cy="148" r="8"/><circle cx="20" cy="162" r="5"/><circle cx="240" cy="162" r="5"/></g>
+        <g fill="#98d8a4"><path d="M33 174c0-14 6-20 13-24-1 13-4 20-13 24M227 174c0-14-6-20-13-24 1 13 4 20 13 24"/></g>
+        <path d="M27 165h13M221 165h13" stroke="#ff91ad" stroke-width="3" stroke-linecap="round"/>
+        <g fill="#fff"><path d="M50 31c-9 0-10-13-1-15 3-10 17-8 18 1 9 0 9 14 0 14z"/><path d="M199 51c-8 0-9-11-1-13 3-9 15-7 16 1 8 0 8 12 0 12z"/></g>
+      </svg>
+      <h1>اطمئني يا قلبي</h1>
+      <p class="intro">كل يوم في مدرستنا حكاية جميلة وأمان ومحبة</p>
+      <button class="heart-button" id="heartButton" type="button" aria-label="اطمئني — اضغطي لرسالة تطمئن قلبك">
+        <svg class="heart-shape" viewBox="0 0 200 190" aria-hidden="true">
+          <defs><linearGradient id="heartGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d13670"/><stop offset="1" stop-color="#b82760"/></linearGradient></defs>
+          <path d="M100 177C84 162 17 112 17 61 17 15 74 4 100 44 126 4 183 15 183 61c0 51-67 101-83 116Z" fill="url(#heartGradient)" stroke="#fff" stroke-width="5"/>
+          <path d="M43 38c9-13 23-17 35-13" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+        </svg>
+        <span class="heart-content" aria-hidden="true">
+          <svg class="smile" viewBox="0 0 54 36" fill="none"><path d="M10 9q4 7 8 0M36 9q4 7 8 0" stroke="white" stroke-width="3.5" stroke-linecap="round"/><path d="M14 19q13 16 26 0" stroke="white" stroke-width="3.5" stroke-linecap="round"/></svg>
+          <strong>اطمئني</strong>
+        </span>
+      </button>
+      <p class="tap-caption">اضغطي على القلب 💗</p>
+      <section class="message-card" id="messageCard" aria-live="polite" aria-atomic="true" hidden>
+        <p class="message-text" id="messageText"></p>
+        <p class="parent-line">ابنتك في أمان وبين أيدٍ أمينة</p>
+      </section>
+      <button class="another-button" id="anotherButton" type="button" hidden>رسالة أخرى</button>
+    </main>
+    <footer aria-label="إدارة النشاط المدرسي">
+      <p class="footer-line">مديرة المدرسة / شيخه السبيعي</p>
+      <p class="footer-line">تنفيذ رائدة النشاط / نوره ابوربشه</p>
+    </footer>
+  </div>
+  <script>
+    const messages = ["إنتي غالية علينا","إنتي شاطرة وقدها","مدرستك تحبك وايد","يا حلوة، إنتي قدها وقدود","كلنا نفرح بوجودك","معلماتك حولك ويساعدونك","لو احتجتي شي، قولي لنا يا قلبي","ما شاء الله عليك، كل يوم تتعلمين شي جديد","إنتي قوية وشجاعة","ابتسامتك تنوّر مدرستنا","وجودك بيننا يسعدنا","خذي نفس يا حلوة، كل شي بيكون بخير","إنتي مميزة ومحبوبة","نفتخر فيك وبكل خطوة تسوينها"];
+    const heartButton = document.querySelector("#heartButton");
+    const anotherButton = document.querySelector("#anotherButton");
+    const messageCard = document.querySelector("#messageCard");
+    const messageText = document.querySelector("#messageText");
+    let lastMessage = -1;
+    function showMessage() {
+      let n = Math.floor(Math.random() * messages.length);
+      if (messages.length > 1 && n === lastMessage) { n = (n + 1 + Math.floor(Math.random() * (messages.length - 1))) % messages.length; }
+      lastMessage = n;
+      messageText.textContent = messages[n];
+      messageCard.hidden = false;
+      anotherButton.hidden = false;
+      messageCard.style.animation = "none";
+      requestAnimationFrame(() => { messageCard.style.animation = ""; });
+      floatHearts();
+    }
+    function floatHearts() {
+      const colors = ["#f678a2", "#c39ae8", "#f2c75c", "#ff9fb5"];
+      for (let i = 0; i < 12; i += 1) {
+        const heart = document.createElement("span");
+        heart.className = "float-heart";
+        heart.setAttribute("aria-hidden", "true");
+        heart.textContent = i % 3 === 0 ? "💗" : "♥";
+        heart.style.setProperty("--x", `${8 + Math.random() * 84}%`);
+        heart.style.setProperty("--sway", `${Math.round(Math.random() * 100 - 50)}px`);
+        heart.style.setProperty("--size", `${14 + Math.random() * 17}px`);
+        heart.style.setProperty("--duration", `${2.4 + Math.random() * 1.6}s`);
+        heart.style.setProperty("--color", colors[Math.floor(Math.random() * colors.length)]);
+        document.body.append(heart);
+        heart.addEventListener("animationend", () => heart.remove(), { once: true });
+      }
+    }
+    heartButton.addEventListener("click", showMessage);
+    anotherButton.addEventListener("click", showMessage);
+  </script>
+</body>
+</html>
