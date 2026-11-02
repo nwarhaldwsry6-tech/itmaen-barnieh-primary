@@ -736,7 +736,7 @@
       certificateName = "";
     });
     document.querySelector("#showCertificate").addEventListener("click", () => {
-      const name = studentName.value.trim().replace(/\s+/g, " " );
+      const name = studentName.value.trim().replace(/\s+/g, " ");
       if (!/^[\u0621-\u064A]+(?: [\u0621-\u064A]+){2}$/.test(name)) {
         certificateError.textContent = "اكتبي اسمك الثلاثي بالعربي (ثلاث كلمات) يا حلوة.";
         studentName.focus();
